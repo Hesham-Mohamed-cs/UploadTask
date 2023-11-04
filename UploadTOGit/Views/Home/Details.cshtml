@@ -1,0 +1,19 @@
+﻿@model productDetails
+@{
+    ViewData["Title"] = "product Details";
+}
+
+<h1> @Model.ProductName  </h1>
+<h1> @Model.productCategory  </h1>
+@if (Model.PropertyNames.Count > 0)
+{
+    for (int i = 0; i < Model.PropertyNames.Count; i++)
+    {
+        <p> @Model.PropertyNames[i] : @Model.PropertyValues[i] </p>
+    }
+}
+else
+{
+    <h2> No Prorerty assigned to this product  </h2>
+}
+<a class="btn btn-primary" asp-action="index"> Back to Home page  </a>

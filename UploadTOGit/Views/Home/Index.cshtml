@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MatrixEC.Models.Entiy.Product>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div calss="container ">
+    <div class="row d-flex row justify-content-center">
+        <div class="col-md-6">
+            <input type="text" placeholder=" Search By product Name" id="search" class="form-control mt-2 " />
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block col-md-2" id="searchButton">Search</button>
+        <a class="btn btn-primary btn-lg btn-block col-md-2" asp-action="index"> get all product </a>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<div id="Searchcontainer">
+    @{
+        ViewData["Flag"] = true;
+    }
+    <partial name="_FilterByName" model="Model" view-data="ViewData" />
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#searchButton').click(function () {
+            console.log($('#search').val())
+            var searchValue = $('#search').val();
+            console.log(typeof searchValue)
+            if (searchValue == '')
+            {
+                $('#Searchcontainer').html("<h1> Search Input Is empty </h1>");
+            }
+            else 
+            {
+                $.ajax({
+                    url: '/Home/filterByName',
+                    type: 'GET',
+                    data: { productName : searchValue },
+                    success: function (result) {
+                        $('#Searchcontainer').html(result);
+                    }
+                });
+            }
+        });
+    });
+
+ 
+</script>
